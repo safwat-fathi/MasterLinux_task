@@ -1,6 +1,8 @@
 import {
   FETCHING_QUESTIONS_PENDING,
   FETCHING_QUESTIONS_SUCCESS,
+  QUESTION_ANSWERED_CORRECT,
+  QUESTION_ANSWERED_WRONG,
 } from "../actions/actionTypes";
 
 import api from "../utils/api";

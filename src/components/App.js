@@ -1,18 +1,10 @@
 import React from "react";
-// react router
-// import {
-//   BrowserRouter as Router,
-//   Route,
-//   Switch,
-//   withRouter,
-// } from "react-router-dom";
 
-// import { compose } from "redux";
 import { connect } from "react-redux";
 // app components
 import QuestionsList from "./QuestionsList";
 
-const App = (props) => {
+const App = () => {
   return (
     // <Router>
     //   <Switch location={isModal ? prevLocation : location}>

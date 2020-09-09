@@ -2,11 +2,14 @@ import {
   FETCHING_QUESTIONS_PENDING,
   FETCHING_QUESTIONS_SUCCESS,
   FETCHING_QUESTIONS_FAILED,
+  QUESTION_ANSWERED_CORRECT,
+  QUESTION_ANSWERED_WRONG,
 } from "../actions/actionTypes";
 
 const initState = {
   loading: false,
   questions: [],
+  score: 0,
   error: "",
 };
 
@@ -32,6 +35,16 @@ const rootReducer = (state = initState, action) => {
         loading: false,
         questions: [],
         error: action.payload,
+      };
+    case QUESTION_ANSWERED_CORRECT:
+      return {
+        ...state,
+        score: action.payload,
+      };
+    case QUESTION_ANSWERED_WRONG:
+      return {
+        ...state,
+        score: action.payload,
       };
     default:
       return state;
