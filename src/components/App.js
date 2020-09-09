@@ -1,4 +1,4 @@
-import React /*,  { useEffect, useState } */ from "react";
+import React from "react";
 // react router
 // import {
 //   BrowserRouter as Router,
@@ -11,25 +11,8 @@ import React /*,  { useEffect, useState } */ from "react";
 import { connect } from "react-redux";
 // app components
 import QuestionsList from "./QuestionsList";
-// import Modal from "./Modal";
-// import ArtistsModal from "./ArtistsModal";
 
 const App = (props) => {
-  // const { location } = props;
-
-  // const [prevLocation, setPrevLocation] = useState(null);
-
-  // useEffect(() => {
-  //   let { location } = props;
-
-  //   if (!(location.state && location.state.modal)) {
-  //     setPrevLocation(location);
-  //   }
-  // });
-
-  // const isModal =
-  //   location.state && location.state.modal && prevLocation !== location;
-
   return (
     // <Router>
     //   <Switch location={isModal ? prevLocation : location}>
@@ -55,4 +38,4 @@ const mapStateToProps = (state) => {
   return state;
 };
 
-export default /*compose( withRouter,  */ connect(mapStateToProps)(/* ) */ App);
+export default connect(mapStateToProps)(App);
