@@ -1,23 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
-// import api from "../utils/api";
-// import { Link } from "react-router-dom";
 
-import {
-  fetchQuestions,
-  // fetchQuestionsSuccess,
-  // fetchQuestionsRequest,
-} from "../actions";
+import { fetchQuestions } from "../actions";
 
 const QuestionsList = (props) => {
   // props
-  const { loading, loadingQuestions, questions, fetchQuestions, error } = props;
+  const { loading, questions, fetchQuestions } = props;
   const [answer, setAnswer] = useState(null);
-  // console.log(api);
+
   useEffect(() => {
-    // fetchQuestionsRequest();
     fetchQuestions();
-    // fetchQuestionsSuccess(api);
   }, []);
 
   const handleChange = (e) => {
@@ -31,7 +23,6 @@ const QuestionsList = (props) => {
     console.log(correctAnswer);
   };
 
-  // console.log(props);
   return loading ? (
     <div>
       <h3>Loading...</h3>
@@ -74,8 +65,6 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     fetchQuestions: () => dispatch(fetchQuestions()),
-    // fetchQuestionsRequest: () => dispatch(fetchQuestionsRequest()),
-    // fetchQuestionsSuccess: () => dispatch(fetchQuestionsSuccess(state)),
   };
 };
 
