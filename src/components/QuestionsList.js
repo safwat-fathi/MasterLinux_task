@@ -5,11 +5,11 @@ import { fetchQuestions } from "../actions";
 
 const QuestionsList = (props) => {
   // props
-  const { loading, questions, fetchQuestions } = props;
+  const { loading, score, questions, fetchQuestions } = props;
   const [answer, setAnswer] = useState(null);
-  const [feedbackMsg, setFeedbackMsg] = useState("");
-  const [msgColor, setMsgColor] = useState("");
-  console.log(props);
+  const [currentElement, setCurrentElement] = useState(0);
+
+  // console.log(props);
   useEffect(() => {
     fetchQuestions();
   }, []);
@@ -18,17 +18,15 @@ const QuestionsList = (props) => {
     setAnswer(e.target.value);
   };
 
-  const handleClick = (e, answers, correctAnswer) => {
+  const handleClick = (e, answers, correctAnswer, index) => {
     e.preventDefault();
-
     if (answer === null || answers[correctAnswer] !== answer) {
-      setMsgColor("red");
-      setFeedbackMsg("Please choose a correct answer");
+      console.log("wrong answer");
       return;
     }
 
-    setMsgColor("green");
-    setFeedbackMsg("Correct choice");
+    index++;
+    setCurrentElement(index);
   };
 
   return loading ? (
@@ -37,36 +35,40 @@ const QuestionsList = (props) => {
     </div>
   ) : (
     <>
-      <h1>Questions</h1>
-      {questions.map((question) => (
-        <div key={question.id}>
-          <p>{question.question}</p>
-          <form>
-            {question.answers.map((answer, index) => (
-              <div key={index}>
+      <h1>Questions List</h1>
+      <span className="score">Result: {score}</span>
+
+      {questions.map((question, i) => {
+        if (i === currentElement) {
+          return (
+            <div key={question.id} className="quiz">
+              <h2>Question: {question.question}</h2>
+
+              <form>
+                {question.answers.map((answer, index) => (
+                  <div key={index}>
+                    <input
+                      name="answer"
+                      onChange={handleChange}
+                      type="radio"
+                      id={`${answer}Id`}
+                      value={answer}
+                    />
+                    <label htmlFor={`${answer}Id`}>{answer}</label>
+                  </div>
+                ))}
                 <input
-                  name="answer"
-                  onChange={handleChange}
-                  type="radio"
-                  id={`${answer}Id`}
-                  value={answer}
+                  type="submit"
+                  value="answer"
+                  onClick={(e) =>
+                    handleClick(e, question.answers, question.correctAnswer, i)
+                  }
                 />
-                <label htmlFor={`${answer}Id`}>{answer}</label>
-              </div>
-            ))}
-            <p style={{ color: `${msgColor}`, fontWeight: "bold" }}>
-              {feedbackMsg}
-            </p>
-            <input
-              type="submit"
-              value="answer"
-              onClick={(e) =>
-                handleClick(e, question.answers, question.correctAnswer)
-              }
-            />
-          </form>
-        </div>
-      ))}
+              </form>
+            </div>
+          );
+        }
+      })}
     </>
   );
 };

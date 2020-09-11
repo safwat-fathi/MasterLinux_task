@@ -12,6 +12,33 @@ code {
     monospace;
 }
 
+.App {
+  max-width: 966px;
+  margin: 0 auto;
+}
+
 h1 {
   text-align: center;
+}
+
+.score {
+  display: flex;
+  margin-bottom: 20px;
+  font-size: 30px;
+  font-weight: bold;
+}
+
+.quiz p {
+  font-size: 30px;
+  font-weight: bold;
+}
+
+.quiz form {
+  display: flex;
+  flex-flow: column;
+  align-items: baseline;
+}
+
+.quiz form input[type="submit"] {
+  margin: 20px 0;
 }

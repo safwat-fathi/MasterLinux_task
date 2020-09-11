@@ -20,9 +20,9 @@ const App = () => {
     //     </Route>
     //   ) : null}
     // </Router>
-    <>
+    <div className="App">
       <QuestionsList />
-    </>
+    </div>
   );
 };
 
