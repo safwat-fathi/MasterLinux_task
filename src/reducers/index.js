@@ -13,8 +13,12 @@ const initState = {
   error: "",
 };
 
+const subScore = (score) => {
+  return score <= 0 ? 0 : score - 1;
+};
+
 const rootReducer = (state = initState, action) => {
-  const { questions } = state;
+  const { questions, score } = state;
 
   switch (action.type) {
     case FETCHING_QUESTIONS_PENDING:
@@ -39,12 +43,12 @@ const rootReducer = (state = initState, action) => {
     case QUESTION_ANSWERED_CORRECT:
       return {
         ...state,
-        score: action.payload,
+        score: score + 1,
       };
     case QUESTION_ANSWERED_WRONG:
       return {
         ...state,
-        score: action.payload,
+        score: subScore(score),
       };
     default:
       return state;

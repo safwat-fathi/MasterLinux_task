@@ -1,11 +1,18 @@
 import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 
-import { fetchQuestions } from "../actions";
+import { fetchQuestions, correctAnswer, wrongAnswer } from "../actions";
 
 const QuestionsList = (props) => {
   // props
-  const { loading, score, questions, fetchQuestions } = props;
+  const {
+    loading,
+    score,
+    questions,
+    fetchQuestions,
+    correctAnswer,
+    wrongAnswer,
+  } = props;
   const [answer, setAnswer] = useState(null);
   const [currentElement, setCurrentElement] = useState(0);
 
@@ -18,15 +25,20 @@ const QuestionsList = (props) => {
     setAnswer(e.target.value);
   };
 
-  const handleClick = (e, answers, correctAnswer, index) => {
+  const handleClick = (e, answers, correctChoice, index) => {
     e.preventDefault();
-    if (answer === null || answers[correctAnswer] !== answer) {
-      console.log("wrong answer");
+
+    if (answer === null) {
       return;
     }
 
-    index++;
-    setCurrentElement(index);
+    if (answers[correctChoice] !== answer) {
+      wrongAnswer();
+    } else {
+      correctAnswer();
+    }
+
+    setCurrentElement(++index);
   };
 
   return loading ? (
@@ -36,7 +48,6 @@ const QuestionsList = (props) => {
   ) : (
     <>
       <h1>Questions List</h1>
-      <span className="score">Result: {score}</span>
 
       {questions.map((question, i) => {
         if (i === currentElement) {
@@ -69,6 +80,11 @@ const QuestionsList = (props) => {
           );
         }
       })}
+      {currentElement >= questions.length ? (
+        <span className="score">Your Score: {score}</span>
+      ) : (
+        <span></span>
+      )}
     </>
   );
 };
@@ -80,6 +96,8 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     fetchQuestions: () => dispatch(fetchQuestions()),
+    correctAnswer: () => dispatch(correctAnswer()),
+    wrongAnswer: () => dispatch(wrongAnswer()),
   };
 };
 

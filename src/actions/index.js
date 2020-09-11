@@ -31,3 +31,15 @@ export const fetchQuestions = () => {
     dispatch(fetchQuestionsSuccess(api));
   };
 };
+
+export const correctAnswer = () => {
+  return {
+    type: QUESTION_ANSWERED_CORRECT,
+  };
+};
+
+export const wrongAnswer = () => {
+  return {
+    type: QUESTION_ANSWERED_WRONG,
+  };
+};
